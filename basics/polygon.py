@@ -1,0 +1,15 @@
+from turtle import *
+pensize(5)
+pencolor("blue")
+speed("normal")
+t = Turtle()
+t.fd(100)
+t.rt(90)
+t.fd(100)
+t.rt(90)
+t.fd(100)
+t.rt(90)
+t.fd(100)
+
+hideturtle()
+mainloop()
