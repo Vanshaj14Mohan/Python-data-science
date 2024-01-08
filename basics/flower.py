@@ -1,0 +1,17 @@
+from turtle import *
+s =Screen()
+pensize(5)
+pencolor("violet")
+fillcolor("red")
+for i in range(5):
+    lt(72)
+    penup()
+    fd(80)
+    pendown()
+    begin_fill()
+    circle(40)
+    end_fill()
+    penup()
+    bk(80)
+    pendown()
+mainloop()
