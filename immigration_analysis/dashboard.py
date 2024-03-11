@@ -1,0 +1,74 @@
+## Running the dashboard ###
+## Open the terminal ##
+## cd immigration_analysis ##
+## streamlit run dashboard.py ##
+######----------####
+
+
+#libraries import 
+import streamlit as st
+import pandas as pd
+import numpy as np
+import os
+import plotly.express as px
+
+# data loading
+@st.cache_data #helps to loadd data in fast way
+def load_data():
+    # load the data
+    df = pd.read_excel("data/Canada.xlsx", sheet_name=1, skiprows=20, skipfooter=2)
+    #rename the columns
+    df = df.rename(columns={
+    'OdName': 'country',
+    'AreaName': 'continent',
+    'RegName': 'region',
+    'DevName': 'status',
+})
+    #rename the values accordingly
+    df = df.replace( 'United Kingdom of Great Britain and Northern Ireland', "UK")
+    #drop unnecessary columns
+    cols_to_drop = ["Type", "AREA", "REG", "DEV"]
+    df = df.drop(columns=cols_to_drop)
+    #create a new column to display the total
+    years = list(range(1980, 2014))
+    df['total'] = df[years].sum(axis=1) 
+    # set country as index (optional & for this case only)
+    df = df.set_index("country")
+    return df #return the dataframe
+
+# ui setup
+st.set_page_config(
+    page_icon= "🌎",
+    page_title="immigration Analysis Dashboard",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+# calling ui function
+years = list(range(1980, 2014))
+
+df = load_data()
+
+# chosen_years = st.sidebar.multiselect("Select Years", years,
+#     help ="Select the years to find immigration data")
+
+st.title("Immigration Analysis Dashboard")
+st.subheader("United Nations data on international migration")
+c1,c2,c3,c4 = st.columns(4)
+chosen_years = st.sidebar.multiselect("Select Years", years, years,
+    help ="Select the years to find immigration data")
+chosen_countries = c2.multiselect("Select countries", df.index.tolist(), default=["India", "China"],
+    help ="Select one or more country(ies)")
+sort_order = c3.selectbox("Sort order", ["Ascending", "Descending"])
+
+#visualization
+if chosen_years and chosen_countries:
+    filtered_df = df.loc[chosen_countries, chosen_years]
+    if sort_order == "Ascending":
+        filtered_df = filtered_df.sort_values(by =chosen_years, ascending=True)
+    else:
+        filtered_df = filtered_df.sort_values(by=chosen_years, ascending=False)
+    st.dataframe(filtered_df)
+    fig = px.line(filtered_df.T, x=filtered_df.columns, y=filtered_df.index)
+    st.plotly_chart(fig, use_conatiner_width=True)
+
