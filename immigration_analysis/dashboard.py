@@ -123,4 +123,4 @@ c3.subheader('Immigration from region')
 status_series = df['region'].value_counts()
 fig = px.pie(status_series, values=status_series.values, 
              names=status_series.index, hole=.7)
-c3.plotly_chart(fig, use_container_width=True, )
+c3.plotly_chart(fig, use_container_width=True,)
