@@ -13,7 +13,7 @@ import os
 import plotly.express as px
 
 # data loading
-@st.cache_data #helps to loadd data in fast way
+@st.cache_data #helps to load data in fast way
 def load_data():
     # load the data
     df = pd.read_excel("data/Canada.xlsx", sheet_name=1, skiprows=20, skipfooter=2)
