@@ -39,7 +39,7 @@ def load_data():
 # ui setup
 st.set_page_config(
     page_icon= "🌎",
-    page_title="immigration Analysis Dashboard",
+    page_title="Immigration Analysis Dashboard",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -48,9 +48,6 @@ st.set_page_config(
 years = list(range(1980, 2014))
 
 df = load_data()
-
-# chosen_years = st.sidebar.multiselect("Select Years", years,
-#     help ="Select the years to find immigration data")
 
 st.title("Immigration Analysis Dashboard")
 st.subheader("United Nations data on international migration")
