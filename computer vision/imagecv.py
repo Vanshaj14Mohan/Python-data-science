@@ -19,7 +19,7 @@ im =cv2.imread("spyxfamily.jpg")
 #im2 = cv2.resize(im2, (400, 500)) resolution given manually
 im2 = cv2.resize(im,(0,0), fx=0.75, fy=0.5 ) #resolution given by factor
 # print(im) to print full matrix display
-#print(im.shape) #to print its shape
+#print(im.shape)to print its shape
 
 bwim =cv2.cvtColor(im2, cv2.COLOR_BGR2GRAY)
 #to see image
