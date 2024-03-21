@@ -1,7 +1,7 @@
 import cv2
 cam = cv2.VideoCapture(0) #index value of webcam
 while cam.isOpened():
-    state, frame = cam.read() # state tells about image from webcame
+    state, frame = cam.read() # state tells about image from webcam
     if not state:
         print("no frame")
         break
